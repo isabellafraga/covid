@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% extends "app3/_layouts/base.html" %}{% load static %}
+{% load widget_tweaks %}
+{% block conteudo %}
+
+
+<html lang="pt-br">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #f1f1f1;
+}
+#regForm {
+  background-color: #ffffff;
+  margin: 30px auto;
+  font-family: Ubuntu;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+h1 {
+  text-align: center;
+}
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Ubuntu;
+  border: 1px solid #aaaaaa;
+}
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+button {
+  background-color: #2C354A;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Ubuntu;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+button:hover {
+  opacity: 0.8;
+  color: white;
+}
+#prevBtn {
+  background-color: #bbbbbb;
+}
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #2C354A;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+.step.active {
+  opacity: 1;
+}
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #2C354A;
+}
+.button {
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #57739e;
+  border: none;
+  border-radius: 15px;
+
+}
+.button:hover {background-color: #2C354A}
+.button:active {
+  background-color: #2C354A;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after {
+  content: '\226A';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.button:hover span {
+  padding-right: 25px;
+}
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
+
+     <div class="container mt-0 mb-5">
+       <div class="row">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <div class="card">
+             <div class="card-body">
+                 <hr>
+        <h1 class="card-title">Cadastro Prévio Vacina Covid-19</h1>
+          <hr>
+                <form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+
+  <!-- One "tab" for each step in the form: -->
+
+      <div class="form-row">                                    <!-- Nome -->
+        <div class="form-group col-md-6">
+             <label for="inputCPF">CPF</label>
+                {% render_field form.CPF class+="form-control" placeholder="Somente Números" %}
+        </div>
+        <div class="form-group col-md-6">
+             <label for="inputPGrupo">Grupo Populacional</label>
+                {% render_field form.grupo class+="form-control" %}
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+             <label for="inputNome">Nome Completo</label>
+                {% render_field form.first_name class+="form-control" %}
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="inputNascimento">Data de Nascimento</label>
+                {% render_field form.nascimento class+="datepicker dateinput form-control" %}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputSexo">Sexo</label>
+                  {% render_field form.sexo class+="form-control" %}
+        </div>
+      </div>
+
+      <div class="clear"></div>
+
+           <div class="form-row">
+             <div class="form-group col-md-12">
+                  <label for="inputEmail">E-mail</label>
+                      {% render_field form.email class+="form-control" placeholder="nome@exemplo.com" %}
+             </div>
+             <div class="form-group col-md-12">
+                 <label for="inputTelefone">Telefone</label>
+                      {% render_field form.telefone class+="form-control" placeholder="DDD+000000000" %}
+             </div>
+           </div>
+
+           <div class="clear"></div>
+
+           <div class="form-row">
+             <div class="form-group col-md-10">
+                  <label for="inputEndereco">Endereço</label>
+                      {% render_field form.endereco class+="form-control" %}
+             </div>
+             <div class="form-group col-md-2">
+                 <label for="inputNumero">Número</label>
+                      {% render_field form.numero class+="form-control" %}
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group col-md-12">
+                  <label for="inputComplemento">Complemento</label>
+                      {% render_field form.complemento class+="form-control" %}
+             </div>
+           </div>
+           <div class="form-row">
+             <div class="form-group col-md-6">
+                 <label for="inputBairro">Bairro</label>
+                      {% render_field form.bairro class+="form-control" %}
+             </div>
+             <div class="form-group col-md-6">
+                  <label for="inputCEP">CEP</label>
+                      {% render_field form.CEP class+="form-control" placeholder="00.000.000" %}
+             </div>
+           </div>
+
+           <div class="clear"></div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                 <label for="inputUsuario">Usúario</label>
+                      {% render_field form.username class+="form-control" %}
+            </div>
+            <div class="form-group col-md-6">
+                  <label for="inputSenha">Senha</label>
+                      {% render_field form.password class+="form-control" %}
+            </div>
+          </div>
+
+          <div class="clear"></div>
+
+    <hr>
+                            <div class="text-right">
+                                <a href="{% url 'app1:lista_cadastro' %}" class="btn btn-outline-danger">Voltar</a>
+                                <button type="submit" class="btn btn-success" >Enviar</button>
+                            </div>
+
+  <!-- Circles which indicates the steps of the form: -->
+<hr>
+</form>
+
+
+
+
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+</html>
+
+{% endblock %}

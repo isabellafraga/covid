@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends "app3/_layouts/base.html" %}
+{% load static %}
+{% block conteudo %}
+
+
+
+        <head>
+            <meta charset="UTF-8">
+            <title>Vacinação Covid-19 | Login</title>
+            <link rel="stylesheet" href={% static "app2/css/stylelogin.css" %}>
+            <!-- Favicon -->
+           <link rel="shortcut icon" href="{% static 'app2/imgs/logo.png' %}" type="image/png">
+        </head>
+    <body>
+
+        <div class="logo">
+            <a href="{% url 'app1:indexx' %}"><img src="{% static "app2/imgs/logo.png" %}" class="logo" alt="Minha Imagem"></a>
+        </div>
+        <div class="login-box">
+
+            <form method="post" action="{% url 'app1:login' %}">
+                {% csrf_token %}
+                <h1>Login</h1>
+                <div class="textbox">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textbox">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="senha" placeholder="Senha">
+                </div>
+
+                <input type="submit" class="btn" value="Entrar">
+            </form>
+
+
+        </div>
+
+
+
+    </body>
+
+
+{% endblock %}

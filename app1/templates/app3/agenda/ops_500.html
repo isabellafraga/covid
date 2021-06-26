@@ -1,0 +1,17 @@
+{% extends "app3/_layouts/base.html" %}{% load static %}
+{% block conteudo %}
+    <main role="main">
+      <div class="container py-5">
+        <div class="col-12 col-md-6 offset-md-3 text-center">
+          <img src="{% static 'app2/imgs/ops.png' %}" class="img-fluid" alt=""/>
+          <br/>
+          <h2>
+            Erro 500<br/>
+            <small>
+              Erro interno!
+            </small>
+          </h2>
+        </div>
+      </div>
+    </main>
+{% endblock %}

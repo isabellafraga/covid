@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+{% extends "app3/_layouts/base.html" %}{% load static %}
+{% load widget_tweaks %}
+{% block conteudo %}
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    </head>
+    <body>
+        <div id="formulario">
+            <form name="cadastro" method="post">
+                <div class="form-group col-md-12">
+                      <label for="inputNome">Nome Completo</label>
+                       {% render_field form.first_name class+="form-control" %}
+                </div>
+                <div class="campo">
+                    <label id="tel">Telefone fixo/móvel</label>
+                    <input type="text" class="telefone" pattern=".{13,14}" maxlength="14" name="Telefone" placeholder="(xx)xxxxx-xxxx" required>
+                    <label id="respostaTel" class="animated shake"></label>
+                </div>
+                <div class="campo">
+                    <label id="CPF">CPF</label>
+                    <input type="text" class="CPF" maxlength="11" name="CPF" placeholder="xxx.xxx.xxx-xx" required>
+                    <label id="respostaCPF" class="animated shake">O CPF digitado não existe</label>
+                </div>
+                <div class="campo">
+                    <label>CEP</label>
+                    <input name="CEP" type="text" id="CEP" maxlength="9" placeholder="xxxxx-xxx" required/>
+                    <label id="respostaCep" class="animated shake"></label>
+                </div>
+                <div class="campo">
+                    <label>Rua</label>
+                    <input name="rua" type="text" id="rua" required/>
+                </div>
+                <div class="campo">
+                    <label>Bairro</label>
+                    <input name="bairro" type="text" id="bairro" required/>
+                </div>
+                <div class="campo">
+                    <label>Cidade</label>
+                    <input name="cidade" type="text" id="cidade" required/>
+                </div>
+                <div class="campo">  
+                    <label>Estado</label>
+                    <input name="uf" type="text" id="uf" required/>
+                </div>
+
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+        <script src="form-validacoes.js"></script>
+    </body>
+</html>
+{% endblock %}

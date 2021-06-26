@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+{% extends "app3/_layouts/base.html" %}
+{% load static %}
+{% block conteudo %}
+
+<html lang="pt-br">
+    <head>
+
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <title>Laboratório de Informática - Fevereiro/2022</title>
+
+        <link rel='shortcut icon' type='image/x-icon' href='/static/agenda/img/favico.ico' />
+
+
+
+
+<link href="/static/material/fonts/material-design-icons/material-icons.css"  rel="stylesheet">
+
+<link href="/static/material/css/materialize.frontend.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="/static/agenda/css/base.css" />
+
+
+    <link rel='stylesheet' href="/static/agenda/css/mes.css" type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/static/agenda/css/topbar.css" />
+    <link rel='stylesheet' href="/static/agenda/fullcalendar/fullcalendar.css" />
+
+
+
+    <script src="/static/material/js/jquery.js"></script>
+    <script src="/static/material/js/materialize.js"></script>
+    <script src="/static/agenda/fullcalendar/lib/moment.min.js"></script>
+    <script src="/static/agenda/fullcalendar/fullcalendar.js"></script>
+
+
+
+
+        <link rel='shortcut icon' type='image/x-icon' href='/static/agenda/img/favico.ico' />
+
+
+    </head>
+    <body class="with-sidebar">
+
+        <header>
+
+            <ul id="slide-out" class="side-nav fixed" data-turbolinks-permanent>
+
+                <li>
+                    <div class="userView">
+                        <img class="background" src="/static/material/imgs/sidenav.svg">
+
+
+<a href="#"><i class="circle material-icons medium">location_on</i></a>
+
+
+                        <a href="#"><span class="white-text name"></span></a>
+                        <a href="#"><span class="white-text email"></span></a>
+                    </div>
+                </li>
+
+
+
+    <li><a href="/">Site Principal<i class="material-icons">home</i></a></li>
+    <li><a href="/faq/">FAQ/Instruções<i class="material-icons">help</i></a></li>
+    <li><a href="/estatisticas/">Estatisticas<i class="material-icons">assessment</i></a></li>
+    <li><a href="/sobre">Sobre<i class="material-icons">info</i></a></li>
+
+    <li><a href="/admin/login/">Login<i class="material-icons">exit_to_app</i></a></li>
+    <!--<li><a href="/accounts/register/">Registrar<i class="material-icons">exit_to_app</i></a></li> -->
+
+
+
+
+
+
+            </ul>
+
+        </header>
+        <main>
+
+
+            <nav class="topbar">
+                <div class="nav-wrapper">
+                    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <div class="brand-logo">
+
+    <span class="name">Laboratório de Informática</span>
+
+                    </div>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+
+                        <li><a href="/accounts/login/" data-turbolinks="false"><i class="material-icons right">lock_open</i>Acessar</a></li>
+
+
+                    </ul>
+                </div>
+            </nav>
+
+
+            <nav class="breadcrumbs">
+                <div class="nav-wrapper">
+
+                </div>
+            </nav>
+
+
+            <div class="content">
+
+<div class="row">
+    <div id="calendar"> </div>
+</div>
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+   jQuery('#calendar').fullCalendar({
+        monthNames:["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        dayNamesShort:["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+        firstDay: 1,
+
+        events: [
+
+        ],
+        eventAfterAllRender: function() {
+            $(".fc-day-top").each(function(index,value) {
+                if(value.className.indexOf("fc-other-month") === -1) {
+                    var a = $(value).children().text();
+                    var x = ("0"+a).slice(-2);
+                    $(value).append("<a href='#'><i class=material-icons>add_circle</i></a>");
+                    $(value).css('text-align', 'center');
+
+                }
+           });
+        },
+        eventClick: function(event, jsEvent, view) {
+            $('#description').html(event.description);
+            $('#modalTitle').html(event.title);
+            $('#fullCalModal').modal('open');
+        }
+
+    });
+    setMonth();
+    var m = jQuery(".fc-left").text();
+    jQuery(".fc-header-toolbar").html("<div class='row'><a class='btn right col s3' href='/mes/f/3/2022/2/next/'><i class='material-icons medium arrow_right'>arrow_forward</i><span class='text'>próximo</span></a><a class='btn left col s3' href='/mes/f/3/2022/2/prev/'><i class='material-icons medium arrow_left'>arrow_back</i><span class='text'>anterior</span></a><div class='col s6'><h2>" + m + "</h2><a href='/locavel/f/3/' class='flow-text'>Detalhes do locável</a></div></div>");
+
+    // Add listener to buttons
+    $('.fc-day-top i').on('click', function(event) {
+        event.preventDefault();
+        var data = $(this).parent().parent().children('.fc-day-number').text();
+        if (data.length == 1) data = '0'+data;
+        var month = '2';
+        if (month.length == 1) month = '0'+month;
+        data += month+'2022';
+        sendRequest(data);
+    });
+    $(".button-collapse").sideNav();
+    $('#fullCalModal').modal();
+    $('#close-modal').on('click', function() {
+        $('#fullCalModal').modal('close');
+    });
+
+    $('#calendar').fullCalendar('option', 'height', $('main').height() - $('.topbar').height());
+});
+
+function setMonth() {
+    if(2>9) {
+        var date = $.fullCalendar.moment("2022-2-01");
+            $("#calendar").fullCalendar('gotoDate', date);
+    } else {
+        var date = $.fullCalendar.moment("2022-02-01");
+            $("#calendar").fullCalendar('gotoDate', date);
+        }
+}
+
+// Give required data to session and redirect
+function sendRequest(data) {
+    $.ajax({
+        type: 'GET',
+        url: '/reservar/',
+        data: {
+            data: data,
+            id: 3
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.success) {
+                if ('f' === 'f') {
+                    location.href = '/admin/agenda/reservaespacofisico/add/';
+                } else if ('f' === 'e') {
+                    location.href = '/admin/agenda/reservaequipamento/add/';
+                } else if ('f' === 's') {
+                    location.href = '/admin/agenda/reservaservico/add/'
+                }
+            }
+        }
+    });
+}
+</script>
+
+<!-- Modals structure -->
+<div id="fullCalModal" class="modal fade">
+        <div class="modal-content">
+            <h5 id='modalTitle'></h5>
+            <p id='description'></p>
+        </div>
+        <div class="modal-footer">
+            <button id='close-modal' class="light-blue darken-4 btn waves-effect waves-light"><i class='material-icons'>close</i>
+            </button>
+        </div>
+</div>
+
+            </div>
+
+
+        </main>
+        <footer>
+
+        </footer>
+
+
+
+
+    </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+    <!-- Modal Criação de Serviço Agenda -->
+{% load static %}
+{% load widget_tweaks %}
+
+    {% if hide_new_button != True %}
+    <div class="container text-center">
+
+      <a href="{% url 'app1:agenda-events-day' today.year today.month today.day %}" class="btn btn-primary mb-auto">Agenda de Hoje</a>
+      <a href="{% url 'app1:agenda-events-all' %}" class="btn btn-warning mb-auto">Todos Agendamentos</a>
+      <button type="submit" class="btn btn-success mt-3 mb-3" data-toggle="modal" data-target="#addEvent">Novo Agendamento</button>
+    <hr/>
+    <hr/>
+    </div>
+      <hr/>
+     <hr/>
+    {% endif %}
+ <style>
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+        .modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+        .modal {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+    </style>
+
+    <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="{% url 'app1:agenda-events-new' %}" enctype="multipart/form-data" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title" style="font-size: 20px" id="addEventLabel">Agendamento</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="addInputDate">Data</label>
+                <input type="date" class="form-control" id="addInputDate" name="date" placeholder="Insira a data do evento" value="{{ today|date:'Y-m-d' }}" required>
+              </div>
+              <div class="form-group">
+                <label for="addInputEvent">Descrição</label>
+                <input type="text" class="form-control" id="addInputEvent" name="event" placeholder="Descrição do Serviço" required>
+              </div>
+              <div class="form-group">
+                <label for="addInputPriority">Prioridade</label>
+                <select class="form-control" id="addInputPriority" name="priority">
+                {% for value, cadastro in cadastrado %}
+                  <option value="{{ value }}">{{ cadastro.CPF }}</option>
+                {% endfor %}
+                </select>
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Inserir</button>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>

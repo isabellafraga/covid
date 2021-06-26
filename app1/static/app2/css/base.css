@@ -1,0 +1,26 @@
+.footer {
+    font-family: "Century Gothic";
+    font-size: 1em;
+    line-height: 8vh;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.rodape{
+    width: 100%;
+    height: 8vh;
+    color: darkred;
+    margin: 0;
+    padding: 0;
+}
+
+.rodape p{
+    font-family: "Century Gothic";
+    font-size: 1em;
+    line-height: 8vh;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
