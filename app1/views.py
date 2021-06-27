@@ -19,6 +19,7 @@ from app1.forms import EventForm, CommentForm, FormCadastro
 from app1.models import Event, Comment, Cadastro
 from .serializers import CommentSerializer, EventSerializer
 from .services import split_str_date
+
 ITEMS_PER_PAGE = 5
 FIRST_PAGE = 1
 
@@ -28,9 +29,6 @@ FIRST_PAGE = 1
 def indexx(request):
     return render(request, 'app3/index.html')
 
-def cpf(request):
-    return render(request, 'app3/_layouts/index.html')
-# PÁGINA PRINCIPAL MANUTENÇÃO
 # ----------------------------------------------
 def noticia(request):
     return render(request, 'app3/noticia.html')
@@ -106,12 +104,6 @@ class CadastroDeleteView(DeleteView):
     model = Cadastro
     context_object_name = 'cadastro'
     success_url = reverse_lazy("app1:lista_cadastro")
-
-#class CadastroCreateView(CreateView):
- #   template_name = "app3/confirmar.html"
-  #  model = Cadastro
-   # form_class = FormCadastro
-    #success_url = reverse_lazy("app1:lista_cadastrado")
 
 # PÁGINA PRINCIPAL LOGIN
 # ----------------------------------------------

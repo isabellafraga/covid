@@ -51,17 +51,17 @@
               {% csrf_token %}
               <div class="form-group">
                 <label for="addInputDate">Data</label>
-                <input type="date" class="form-control" id="addInputDate" name="date" placeholder="Insira a data do evento" value="{{ today|date:'Y-m-d' }}" required>
+                <input type="date" class="form-control" id="addInputDate" name="date" placeholder="Data" value="{{ today|date:'Y-m-d' }}" required>
               </div>
               <div class="form-group">
-                <label for="addInputEvent">Descrição</label>
-                <input type="text" class="form-control" id="addInputEvent" name="event" placeholder="Descrição do Serviço" required>
+                <label for="addInputEvent">CPF</label>
+                <input type="text" class="form-control" id="addInputEvent" name="event" placeholder="000.000.00-00" required>
               </div>
               <div class="form-group">
-                <label for="addInputPriority">Prioridade</label>
-                <select class="form-control" id="addInputPriority" name="priority">
-                {% for value, cadastro in cadastrado %}
-                  <option value="{{ value }}">{{ cadastro.CPF }}</option>
+                <label for="editInputPriority">Prioridade</label>
+                <select class="form-control" id="editInputPriority" name="priority">
+                {% for value, priority in priorities %}
+                  <option value="{{ value }}">{{ priority }}</option>
                 {% endfor %}
                 </select>
               </div>

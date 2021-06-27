@@ -25,7 +25,6 @@ urlpatterns = [
     path('cadastro/<pk>', CadastroUpdateView.as_view(), name="atualiza_cadastro"),
     path('cadastro/excluir/<pk>', CadastroDeleteView.as_view(), name="deleta_cadastro"),
     path('principalcadastro/', IndexCadastroTemplateView.as_view(), name="principal_cadastro"),
-    path('cpf', views.cpf, name='cpf'),
     path("api/v1/", include(router.urls)),
     path("agenda", views.agenda, name="agenda-events"),
     path("all", views.all, name="agenda-events-all"),
